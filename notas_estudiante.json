@@ -1,0 +1,24 @@
+{
+    "Programacion": {
+        "semestre": "2",
+        "peso_examen": 100,
+        "peso_practicas": 0,
+        "competencias": [
+            {
+                "nota_examen": 95.0,
+                "notas_tareas": [
+                    100.0,
+                    100.0
+                ],
+                "promedio_final": 95.0
+            },
+            {
+                "nota_examen": 98.0,
+                "notas_tareas": [
+                    100.0
+                ],
+                "promedio_final": 98.0
+            }
+        ]
+    }
+}
