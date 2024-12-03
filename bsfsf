@@ -1,0 +1,59 @@
+import tkinter
+from tkinter import messagbox
+import os 
+import json 
+
+def ver_materia(self, materia):
+    def anadir_competencia():
+        self.limpiar_frame()
+
+        def definir_tareas():
+            try:
+                cantidad_tareas = int(entry_tareas.get())
+                if cantidad_tareas <= 0:
+                    raise ValueError
+            except ValueError:
+                messagebox.showerror("Error", "Ingresa un número válido de tareas")
+                return
+            self.registrar_notas_competencia(materia, cantidad_tareas)
+
+        tk.Label(self.frame_principal, text="Cantidad de tareas:").pack()
+        entry_tareas = tk.Entry(self.frame_principal)
+        entry_tareas.pack()
+
+        tk.Button(self.frame_principal, text="Siguiente", command=definir_tareas).pack(pady=10)
+        tk.Button(self.frame_principal, text="Volver", command=lambda: self.ver_materia(materia)).pack(pady=10)
+
+    def editar_competencia(idx):
+        self.editar_notas_competencia(materia, idx)
+
+    def eliminar_competencia(idx):
+        if messagebox.askyesno("Confirmar", "¿Estás seguro de eliminar esta competencia?"):
+            del self.datos[materia]["competencias"][idx]
+            guardar_datos(self.datos)
+            self.ver_materia(materia)
+
+    self.limpiar_frame()
+    tk.Label(self.frame_principal, text=f"Materia: {materia}").pack()
+    tk.Label(self.frame_principal, text=f"Semestre: {self.datos[materia]['semestre']}").pack()
+    tk.Label(self.frame_principal, text=f"Peso Examen: {self.datos[materia]['peso_examen']}%").pack()
+    tk.Label(self.frame_principal, text=f"Peso Prácticas: {self.datos[materia]['peso_practicas']}%").pack()
+
+    tk.Button(self.frame_principal, text="+ Añadir Competencia", command=anadir_competencia).pack(pady=10)
+
+    promedio_materia = 0
+    if self.datos[materia]["competencias"]:
+        promedio_materia = sum(
+            c["promedio_final"] for c in self.datos[materia]["competencias"]
+        ) / len(self.datos[materia]["competencias"])
+
+    for idx, comp in enumerate(self.datos[materia]["competencias"], start=1):
+        frame_competencia = tk.Frame(self.frame_principal)
+        frame_competencia.pack(fill="x", pady=5)
+
+        tk.Label(frame_competencia, text=f"Competencia {idx}: Promedio Final = {comp['promedio_final']:.2f}").pack(side="left")
+        tk.Button(frame_competencia, text="Editar", command=lambda idx=idx: editar_competencia(idx)).pack(side="right")
+        tk.Button(frame_competencia, text="Eliminar", command=lambda idx=idx: eliminar_competencia(idx)).pack(side="right")
+
+    tk.Label(self.frame_principal, text=f"Promedio de la materia: {promedio_materia:.2f}").pack(pady=10)
+    tk.Button(self.frame_principal, text="Volver", command=self.crear_pantalla_principal).pack(pady=10)

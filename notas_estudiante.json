@@ -20,5 +20,25 @@
                 "promedio_final": 98.0
             }
         ]
+    },
+    "sjf": {
+        "semestre": "swef",
+        "peso_examen": 10,
+        "peso_practicas": 30,
+        "competencias": [
+            {
+                "nota_examen": 10.0,
+                "notas_tareas": [
+                    10.0
+                ],
+                "promedio_final": 4.0
+            }
+        ]
+    },
+    "kasd": {
+        "semestre": "asd",
+        "peso_examen": 70,
+        "peso_practicas": 30,
+        "competencias": []
     }
 }
